@@ -8,6 +8,7 @@ import {Button} from "@/components/ui/button";
 const NAV = [
     {href: "/", label: "Home"},
     {href: "/contact", label: "Contact"},
+    {href: "/notes", label: "Notes"},
 ];
 
 export function SiteHeader() {
