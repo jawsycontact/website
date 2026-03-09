@@ -14,18 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
-      notes: {
+      events: {
         Row: {
+          created_at: string
+          date: string
+          description: string | null
           id: number
-          title: string
+          latitude: number
+          location_name: string | null
+          longitude: number
+          name: string
         }
         Insert: {
-          id?: never
-          title: string
+          created_at?: string
+          date: string
+          description?: string | null
+          id?: number
+          latitude: number
+          location_name?: string | null
+          longitude: number
+          name: string
         }
         Update: {
-          id?: never
-          title?: string
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: number
+          latitude?: number
+          location_name?: string | null
+          longitude?: number
+          name?: string
         }
         Relationships: []
       }

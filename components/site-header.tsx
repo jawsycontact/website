@@ -1,14 +1,15 @@
 // components/site-header.tsx
 import Link from "next/link";
-import {ThemeToggleButton} from "@/components/theme-toggle-button";
+import {ThemeToggleButton} from "@/components/buttons/theme-toggle-button";
+import {ExternalLinkButton} from "@/components/buttons/external-link-button";
 import {ButtonGroup} from "@/components/ui/button-group";
 import {Button} from "@/components/ui/button";
 
 
 const NAV = [
     {href: "/", label: "Home"},
+    {href: "/events", label: "Events"},
     {href: "/contact", label: "Contact"},
-    {href: "/notes", label: "Notes"},
 ];
 
 export function SiteHeader() {
@@ -36,7 +37,15 @@ export function SiteHeader() {
                 </nav>
 
                 <ButtonGroup>
-                    <ThemeToggleButton/>
+                    <ButtonGroup>
+                        <ExternalLinkButton
+                            href={"https://instagram.com"}
+                            variant="outline"
+                        />
+                    </ButtonGroup>
+                    <ButtonGroup>
+                        <ThemeToggleButton/>
+                    </ButtonGroup>
                 </ButtonGroup>
             </div>
         </header>
