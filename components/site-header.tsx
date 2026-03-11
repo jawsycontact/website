@@ -1,18 +1,21 @@
 // components/site-header.tsx
-import Link from "next/link";
+import {Link} from "@/i18n/navigation";
 import {ThemeToggleButton} from "@/components/buttons/theme-toggle-button";
 import {ExternalLinkButton} from "@/components/buttons/external-link-button";
 import {ButtonGroup} from "@/components/ui/button-group";
 import {Button} from "@/components/ui/button";
+import {LanguageToggleButton} from "@/components/buttons/language-toggle-button";
+import {useTranslations} from "next-intl";
 
-
-const NAV = [
-    {href: "/", label: "Home"},
-    {href: "/events", label: "Events"},
-    {href: "/contact", label: "Contact"},
-];
 
 export function SiteHeader() {
+    const t = useTranslations("header.nav");
+    const nav = [
+        {href: "/", label: t("home")},
+        {href: "/events", label: t("events")},
+        {href: "/contact", label: t("contact")},
+    ];
+
     return (
         <header className="site-header">
             <div className="container site-header-inner">
@@ -21,7 +24,7 @@ export function SiteHeader() {
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
-                    {NAV.map((item) => (
+                    {nav.map((item) => (
                         <Button
                             key={item.href}
                             asChild
@@ -44,6 +47,7 @@ export function SiteHeader() {
                         />
                     </ButtonGroup>
                     <ButtonGroup>
+                        <LanguageToggleButton/>
                         <ThemeToggleButton/>
                     </ButtonGroup>
                 </ButtonGroup>

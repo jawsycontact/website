@@ -17,15 +17,15 @@ export default function AppError({ error, reset }: AppErrorProps) {
 
     return (
         <FeedbackState
-            eyebrow="Application Error"
-            title="Something went wrong"
-            description="The page could not be loaded. Try again, then check server logs if this keeps happening."
+            eyebrow="Erreur de l'application"
+            title="Une erreur est survenue"
+            description="La page n'a pas pu être chargée. Réessayez, puis vérifiez les logs serveur si le problème persiste."
             digest={error.digest}
             actions={
                 <>
-                    <Button onClick={reset}>Try again</Button>
+                    <Button onClick={reset}>Réessayer</Button>
                     <Button asChild variant="outline">
-                        <Link href="/">Go to home</Link>
+                        <Link href="/">{`Retour à l'accueil`}</Link>
                     </Button>
                 </>
             }

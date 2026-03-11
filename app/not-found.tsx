@@ -7,12 +7,12 @@ import { FeedbackState } from '@/components/feedback-state';
 export default function NotFound() {
     return (
         <FeedbackState
-            eyebrow="Not Found"
-            title="This page does not exist"
-            description="The page may have moved or the URL might be incorrect."
+            eyebrow="Page introuvable"
+            title="Cette page n'existe pas"
+            description="La page a peut-être été déplacée ou l'URL est incorrecte."
             actions={
                 <Button asChild>
-                    <Link href="/">Go to home</Link>
+                    <Link href="/">{`Retour à l'accueil`}</Link>
                 </Button>
             }
         />

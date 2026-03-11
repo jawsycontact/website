@@ -47,6 +47,57 @@ export type Database = {
         }
         Relationships: []
       }
+      inscriptions: {
+        Row: {
+          age: number
+          anything_to_share: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: number
+          ok_to_be_filmed: boolean
+          why_join: string
+        }
+        Insert: {
+          age: number
+          anything_to_share?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: number
+          ok_to_be_filmed: boolean
+          why_join: string
+        }
+        Update: {
+          age?: number
+          anything_to_share?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: number
+          ok_to_be_filmed?: boolean
+          why_join?: string
+        }
+        Relationships: []
+      }
+      tally_form_links: {
+        Row: {
+          created_at: string
+          id: number
+          link: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          link: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          link?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

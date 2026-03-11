@@ -20,7 +20,7 @@ export function FeedbackState({ eyebrow, title, description, digest, actions }: 
 
                 {digest ? (
                     <p className="mt-3 rounded-md border bg-muted/40 px-3 py-2 font-mono text-xs text-muted-foreground">
-                        Digest: {digest}
+                        Référence : {digest}
                     </p>
                 ) : null}
 

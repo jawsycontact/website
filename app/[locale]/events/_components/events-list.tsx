@@ -11,9 +11,16 @@ function formatCoordinates(latitude: number, longitude: number) {
     return `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
 }
 
+function formatEventDate(date: string) {
+    return new Intl.DateTimeFormat('fr-FR', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+    }).format(new Date(date));
+}
+
 export function EventsList({ events }: EventsListProps) {
     if (events.length === 0) {
-        return <p className="mt-4 text-sm text-muted-foreground">No events yet.</p>;
+        return <p className="mt-4 text-sm text-muted-foreground">Aucun événement pour le moment.</p>;
     }
 
     return (
@@ -22,7 +29,7 @@ export function EventsList({ events }: EventsListProps) {
                 <li key={event.id} className="rounded-md border p-4">
                     <p className="text-sm font-medium">{event.name}</p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                        {new Date(event.date).toLocaleString()}
+                        {formatEventDate(event.date)}
                     </p>
                     <p className="mt-1 text-xs text-muted-foreground">
                         {formatCoordinates(event.latitude, event.longitude)}
