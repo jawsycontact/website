@@ -14,13 +14,18 @@ export function SiteHeader() {
         {href: "/", label: t("home")},
         {href: "/events", label: t("events")},
         {href: "/contact", label: t("contact")},
+        {href: "/registration", label: "Registration"},
     ];
 
     return (
         <header className="site-header">
             <div className="container site-header-inner">
-                <Link href={"/"} className="logo">
-                    Logo
+                <Link
+                    href={"/"}
+                    className="logo"
+                    aria-label={t("home")}
+                >
+                    <span className="logo-mark" aria-hidden={true}/>
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
@@ -42,7 +47,7 @@ export function SiteHeader() {
                 <ButtonGroup>
                     <ButtonGroup>
                         <ExternalLinkButton
-                            href={"https://instagram.com"}
+                            href={"https://instagram.com/dive_socialclub"}
                             variant="outline"
                         />
                     </ButtonGroup>

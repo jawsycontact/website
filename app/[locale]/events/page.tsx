@@ -1,24 +1,32 @@
-import { createClient } from '@/lib/supabase/server';
-import { cache } from 'react';
+import { cacheQuery } from '@/lib/cache/server-cache';
+import { createClient } from '@/lib/supabase/server-public';
 import type { Tables } from '@/lib/supabase/types';
 import { EventsPageShell } from './_components/events-page-shell';
 import { EventsList } from './_components/events-list';
 
 type Event = Tables<'events'>;
 
-const getEvents = cache(async (): Promise<Event[]> => {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-        .from('events')
-        .select('id, name, date, longitude, latitude, location_name, description, created_at')
-        .order('date', { ascending: true });
+const getEvents = cacheQuery(
+    async (): Promise<Event[]> => {
+        const supabase = createClient();
 
-    if (error) {
-        throw new Error(`Failed to load events: ${error.message}`);
-    }
+        const { data, error } = await supabase
+            .from('events')
+            .select('id, name, date, longitude, latitude, location_name, description, created_at')
+            .order('date', { ascending: true });
 
-    return data ?? [];
-});
+        if (error) {
+            throw new Error(`Failed to load events: ${error.message}`);
+        }
+
+        return data ?? [];
+    },
+    {
+        key: ['events-list'],
+        revalidate: 60 * 60,
+        tags: ['events'],
+    },
+);
 
 export default async function Events() {
     const events = await getEvents();
