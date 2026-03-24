@@ -29,7 +29,13 @@ const getEvents = cacheQuery(
 );
 
 export default async function Events() {
-    const events = await getEvents();
+    let events: Event[] = [];
+
+    try {
+        events = await getEvents();
+    } catch (error) {
+        console.error('Failed to load events for prerender:', error);
+    }
 
     return (
         <EventsPageShell>
