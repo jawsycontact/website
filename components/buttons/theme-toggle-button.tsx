@@ -19,6 +19,7 @@ export function ThemeToggleButton() {
             variant="default"
             size="icon"
             onClick={toggleTheme}
+            aria-label="Changer le thème"
         >
             <LuSun className={`${iconBase} dark:scale-0 dark:opacity-0`}/>
             <LuMoon className={`${iconBase} absolute scale-0 opacity-0 dark:scale-100 dark:opacity-100`}/>

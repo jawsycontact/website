@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { FeedbackState } from '@/components/feedback-state';
 
 type AppErrorProps = {
     error: Error & { digest?: string };
@@ -15,27 +16,19 @@ export default function AppError({ error, reset }: AppErrorProps) {
     }, [error]);
 
     return (
-        <section className="container py-12">
-            <div className="mx-auto w-full max-w-2xl rounded-2xl border bg-card p-6 sm:p-8">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground">Application Error</p>
-                <h1 className="mt-2 text-2xl font-semibold tracking-tight">Something went wrong</h1>
-                <p className="mt-3 text-sm text-muted-foreground">
-                    The page could not be loaded. Try again, then check server logs if this keeps happening.
-                </p>
-
-                {error.digest ? (
-                    <p className="mt-3 rounded-md border bg-muted/40 px-3 py-2 font-mono text-xs text-muted-foreground">
-                        Digest: {error.digest}
-                    </p>
-                ) : null}
-
-                <div className="mt-6 flex flex-wrap gap-3">
-                    <Button onClick={reset}>Try again</Button>
+        <FeedbackState
+            eyebrow="Erreur de l'application"
+            title="Une erreur est survenue"
+            description="La page n'a pas pu être chargée. Réessayez, puis vérifiez les logs serveur si le problème persiste."
+            digest={error.digest}
+            actions={
+                <>
+                    <Button onClick={reset}>Réessayer</Button>
                     <Button asChild variant="outline">
-                        <Link href="/">Go to home</Link>
+                        <Link href="/">{`Retour à l'accueil`}</Link>
                     </Button>
-                </div>
-            </div>
-        </section>
+                </>
+            }
+        />
     );
 }

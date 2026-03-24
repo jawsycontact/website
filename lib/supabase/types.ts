@@ -14,18 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
-      notes: {
+      events: {
         Row: {
+          created_at: string
+          date: string
+          description: string | null
           id: number
-          title: string
+          latitude: number
+          location_name: string | null
+          longitude: number
+          name: string
         }
         Insert: {
-          id?: never
-          title: string
+          created_at?: string
+          date: string
+          description?: string | null
+          id?: number
+          latitude: number
+          location_name?: string | null
+          longitude: number
+          name: string
         }
         Update: {
-          id?: never
-          title?: string
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: number
+          latitude?: number
+          location_name?: string | null
+          longitude?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      inscriptions: {
+        Row: {
+          age: number
+          anything_to_share: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: number
+          ok_to_be_filmed: boolean
+          why_join: string
+        }
+        Insert: {
+          age: number
+          anything_to_share?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: number
+          ok_to_be_filmed: boolean
+          why_join: string
+        }
+        Update: {
+          age?: number
+          anything_to_share?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: number
+          ok_to_be_filmed?: boolean
+          why_join?: string
+        }
+        Relationships: []
+      }
+      tally_form_links: {
+        Row: {
+          created_at: string
+          id: number
+          link: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          link: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          link?: string
         }
         Relationships: []
       }

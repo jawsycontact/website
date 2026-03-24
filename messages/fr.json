@@ -1,0 +1,20 @@
+{
+  "languageToggle": {
+    "label": "Changer de langue"
+  },
+  "header": {
+    "nav": {
+      "home": "Accueil",
+      "events": "Événements",
+      "contact": "Contact"
+    }
+  },
+  "home": {
+    "title": "Accueil",
+    "description": "Bienvenue sur le site. Consultez les événements, contactez-nous ou passez par la page inscription."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Écrivez-nous pour toute question, partenariat ou demande d'information."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "languageToggle": {
+    "label": "Switch language"
+  },
+  "header": {
+    "nav": {
+      "home": "Home",
+      "events": "Events",
+      "contact": "Contact"
+    }
+  },
+  "home": {
+    "title": "Home",
+    "description": "Welcome to the website. Browse events, contact us, or visit the registration page."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Write to us for any questions, partnership ideas, or information requests."
+  }
+}

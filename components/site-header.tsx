@@ -1,26 +1,35 @@
 // components/site-header.tsx
-import Link from "next/link";
-import {ThemeToggleButton} from "@/components/theme-toggle-button";
+import {Link} from "@/i18n/navigation";
+import {ThemeToggleButton} from "@/components/buttons/theme-toggle-button";
+import {ExternalLinkButton} from "@/components/buttons/external-link-button";
 import {ButtonGroup} from "@/components/ui/button-group";
 import {Button} from "@/components/ui/button";
+import {LanguageToggleButton} from "@/components/buttons/language-toggle-button";
+import {useTranslations} from "next-intl";
 
-
-const NAV = [
-    {href: "/", label: "Home"},
-    {href: "/contact", label: "Contact"},
-    {href: "/notes", label: "Notes"},
-];
 
 export function SiteHeader() {
+    const t = useTranslations("header.nav");
+    const nav = [
+        {href: "/", label: t("home")},
+        {href: "/events", label: t("events")},
+        {href: "/contact", label: t("contact")},
+        {href: "/registration", label: "Registration"},
+    ];
+
     return (
         <header className="site-header">
             <div className="container site-header-inner">
-                <Link href={"/"} className="logo">
-                    Logo
+                <Link
+                    href={"/"}
+                    className="logo"
+                    aria-label={t("home")}
+                >
+                    <span className="logo-mark" aria-hidden={true}/>
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
-                    {NAV.map((item) => (
+                    {nav.map((item) => (
                         <Button
                             key={item.href}
                             asChild
@@ -36,7 +45,16 @@ export function SiteHeader() {
                 </nav>
 
                 <ButtonGroup>
-                    <ThemeToggleButton/>
+                    <ButtonGroup>
+                        <ExternalLinkButton
+                            href={"https://instagram.com/dive_socialclub"}
+                            variant="outline"
+                        />
+                    </ButtonGroup>
+                    <ButtonGroup>
+                        <LanguageToggleButton/>
+                        <ThemeToggleButton/>
+                    </ButtonGroup>
                 </ButtonGroup>
             </div>
         </header>
