@@ -9,23 +9,25 @@ export interface ActionResponse<T = never> {
     inputs?: T;
 }
 export const registrationFormSchema = z.object({
-    "input-7ba": z.string({ error: "This field is required" }),
-    "input-e1e": z.email({ error: "Please enter a valid email" }),
-    "input-772": z.coerce
+    fullName: z.string({ error: "This field is required" }),
+    email: z.email({ error: "Please enter a valid email" }),
+    age: z.coerce
         .number({ error: "Please enter a valid number" })
         .optional(),
-    "input-49b": z.string({ error: "This field is required" }).optional(),
-    "multiselect-208": z
+    cityOrDistrict: z.string({ error: "This field is required" }).optional(),
+    languagePreferences: z
         .array(z.string(), { error: "Please select at least one item" })
         .min(1, "Please select at least one item"),
-    "select-6fd": z.string().min(1, "Please select an item").optional(),
-    "textarea-a1a": z.string({ error: "This field is required" }).optional(),
-    "checkbox-451": z.boolean().default(false),
-    "checkbox-40b": z.boolean().default(false),
-    "checkbox-07a": z.boolean().default(false),
-    "checkbox-204": z.boolean().default(false),
-    "checkbox-8ee": z.boolean().default(false),
-    "input-eb8": z.string({ error: "This field is required" }).optional(),
-    "switch-a5d": z.literal(true, { error: "This field is required" }),
-    "textarea-d7e": z.string({ error: "This field is required" }).optional(),
+    gender: z.string().min(1, "Please select an item").optional(),
+    joinReason: z.string({ error: "This field is required" }).optional(),
+    themeIdentityBelonging: z.boolean().default(false),
+    themePossibilitiesPressure: z.boolean().default(false),
+    themeFriendshipConnections: z.boolean().default(false),
+    themeSoloSelfLove: z.boolean().default(false),
+    themeAdulthoodScam: z.boolean().default(false),
+    instagramHandle: z.string({ error: "This field is required" }).optional(),
+    cameraConsent: z.literal(true, { error: "This field is required" }),
+    additionalNotes: z.string({ error: "This field is required" }).optional(),
 });
+
+export type RegistrationFormValues = z.infer<typeof registrationFormSchema>;

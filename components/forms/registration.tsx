@@ -8,9 +8,7 @@ import { Check } from "lucide-react";
 import {
     Field,
     FieldGroup,
-    FieldContent,
     FieldLabel,
-    FieldDescription,
     FieldError,
     FieldSeparator,
 } from "@/components/ui/field";
@@ -32,7 +30,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Switch } from "@/components/ui/switch";
 
 type Schema = z.infer<typeof registrationFormSchema>;
 
@@ -49,7 +46,7 @@ export function RegistrationForm() {
             // TODO: implement form submission
             console.log(data);
             form.reset();
-        } catch (error) {
+        } catch {
             // TODO: handle error
         }
     });
@@ -93,17 +90,17 @@ export function RegistrationForm() {
         >
             <FieldGroup className="grid md:grid-cols-6 gap-4 mb-6">
                 <Controller
-                    name="input-7ba"
+                    name="fullName"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="input-7ba">Name *</FieldLabel>
+                            <FieldLabel htmlFor="fullName">Name *</FieldLabel>
                             <Input
                                 {...field}
-                                id="input-7ba"
+                                id="fullName"
                                 type="text"
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
@@ -118,17 +115,17 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="input-e1e"
+                    name="email"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="input-e1e">Email *</FieldLabel>
+                            <FieldLabel htmlFor="email">Email *</FieldLabel>
                             <Input
                                 {...field}
-                                id="input-e1e"
+                                id="email"
                                 type="text"
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
@@ -143,17 +140,17 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="input-772"
+                    name="age"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="input-772">Age </FieldLabel>
+                            <FieldLabel htmlFor="age">Age </FieldLabel>
                             <Input
                                 {...field}
-                                id="input-772"
+                                id="age"
                                 type="number"
                                 onChange={(e) => {
                                     field.onChange(e.target.valueAsNumber);
@@ -168,17 +165,19 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="input-49b"
+                    name="cityOrDistrict"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="input-49b">City (or district) </FieldLabel>
+                            <FieldLabel htmlFor="cityOrDistrict">
+                                City (or district)
+                            </FieldLabel>
                             <Input
                                 {...field}
-                                id="input-49b"
+                                id="cityOrDistrict"
                                 type="text"
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
@@ -193,7 +192,7 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="multiselect-208"
+                    name="languagePreferences"
                     control={form.control}
                     render={({ field, fieldState }) => {
                         const options = [
@@ -213,7 +212,9 @@ export function RegistrationForm() {
                                 data-invalid={fieldState.invalid}
                                 className="gap-1 [&_p]:pb-1 col-span-full"
                             >
-                                <FieldLabel htmlFor="multiselect-208">Language *</FieldLabel>
+                                <FieldLabel htmlFor="languagePreferences">
+                                    Language *
+                                </FieldLabel>
 
                                 <MultiSelect
                                     values={field.value ?? []}
@@ -239,7 +240,7 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="select-6fd"
+                    name="gender"
                     control={form.control}
                     render={({ field, fieldState }) => {
                         const options = [
@@ -252,7 +253,7 @@ export function RegistrationForm() {
                                 data-invalid={fieldState.invalid}
                                 className="gap-1 col-span-full"
                             >
-                                <FieldLabel htmlFor="select-6fd">Gender </FieldLabel>
+                                <FieldLabel htmlFor="gender">Gender </FieldLabel>
 
                                 <Select value={field.value} onValueChange={field.onChange}>
                                     <SelectTrigger className="w-full">
@@ -275,23 +276,22 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="textarea-a1a"
+                    name="joinReason"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="textarea-a1a">
+                            <FieldLabel htmlFor="joinReason">
                                 Why do you want to join DIVE ?{" "}
                             </FieldLabel>
                             <Textarea
                                 {...field}
                                 aria-invalid={fieldState.invalid}
-                                id="textarea-a1a"
+                                id="joinReason"
                                 placeholder="What pushed you into joining in ?"
                             />
-                            <FieldDescription>A multi-line text input field</FieldDescription>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
                     )}
@@ -301,7 +301,7 @@ export function RegistrationForm() {
                     Which theme inspires you most ?
                 </h1>
                 <Controller
-                    name="checkbox-451"
+                    name="themeIdentityBelonging"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
@@ -310,12 +310,12 @@ export function RegistrationForm() {
                         >
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
-                                    id="checkbox-451"
+                                    id="themeIdentityBelonging"
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
-                                <FieldLabel htmlFor="checkbox-451">
+                                <FieldLabel htmlFor="themeIdentityBelonging">
                                     Identity & Belonging{" "}
                                 </FieldLabel>
                             </div>
@@ -324,7 +324,7 @@ export function RegistrationForm() {
                     )}
                 />
                 <Controller
-                    name="checkbox-40b"
+                    name="themePossibilitiesPressure"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
@@ -333,12 +333,12 @@ export function RegistrationForm() {
                         >
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
-                                    id="checkbox-40b"
+                                    id="themePossibilitiesPressure"
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
-                                <FieldLabel htmlFor="checkbox-40b">
+                                <FieldLabel htmlFor="themePossibilitiesPressure">
                                     Possibilities & Pressure{" "}
                                 </FieldLabel>
                             </div>
@@ -347,7 +347,7 @@ export function RegistrationForm() {
                     )}
                 />
                 <Controller
-                    name="checkbox-07a"
+                    name="themeFriendshipConnections"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
@@ -356,12 +356,12 @@ export function RegistrationForm() {
                         >
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
-                                    id="checkbox-07a"
+                                    id="themeFriendshipConnections"
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
-                                <FieldLabel htmlFor="checkbox-07a">
+                                <FieldLabel htmlFor="themeFriendshipConnections">
                                     Friendship & Connections{" "}
                                 </FieldLabel>
                             </div>
@@ -370,7 +370,7 @@ export function RegistrationForm() {
                     )}
                 />
                 <Controller
-                    name="checkbox-204"
+                    name="themeSoloSelfLove"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
@@ -379,12 +379,12 @@ export function RegistrationForm() {
                         >
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
-                                    id="checkbox-204"
+                                    id="themeSoloSelfLove"
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
-                                <FieldLabel htmlFor="checkbox-204">
+                                <FieldLabel htmlFor="themeSoloSelfLove">
                                     Solo in Paris & Self-Love{" "}
                                 </FieldLabel>
                             </div>
@@ -393,7 +393,7 @@ export function RegistrationForm() {
                     )}
                 />
                 <Controller
-                    name="checkbox-8ee"
+                    name="themeAdulthoodScam"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
@@ -402,12 +402,12 @@ export function RegistrationForm() {
                         >
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
-                                    id="checkbox-8ee"
+                                    id="themeAdulthoodScam"
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
-                                <FieldLabel htmlFor="checkbox-8ee">
+                                <FieldLabel htmlFor="themeAdulthoodScam">
                                     The Adulthood Scam{" "}
                                 </FieldLabel>
                             </div>
@@ -418,17 +418,19 @@ export function RegistrationForm() {
                 <FieldSeparator className="my-4" />
 
                 <Controller
-                    name="input-eb8"
+                    name="instagramHandle"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="input-eb8">Instagram </FieldLabel>
+                            <FieldLabel htmlFor="instagramHandle">
+                                Instagram
+                            </FieldLabel>
                             <Input
                                 {...field}
-                                id="input-eb8"
+                                id="instagramHandle"
                                 type="text"
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
@@ -443,53 +445,52 @@ export function RegistrationForm() {
                 />
 
                 <Controller
-                    name="switch-a5d"
-                    control={form.control}
-                    render={({ field, fieldState }) => (
-                        <Field
-                            orientation="horizontal"
-                            data-invalid={fieldState.invalid}
-                            className="col-span-full"
-                        >
-                            <FieldContent>
-                                <FieldLabel htmlFor="switch-a5d">
-                                    Are you ok with being captured on camera ? *
-                                </FieldLabel>
-                                <FieldDescription>Yes or No</FieldDescription>
-                                {fieldState.invalid && (
-                                    <FieldError errors={[fieldState.error]} />
-                                )}
-                            </FieldContent>
-                            <Switch
-                                aria-invalid={fieldState.invalid}
-                                id="switch-a5d"
-                                name={field.name}
-                                checked={Boolean(field.value)}
-                                onCheckedChange={field.onChange}
-                                onBlur={field.onBlur}
-                            />
-                        </Field>
-                    )}
-                />
-
-                <Controller
-                    name="textarea-d7e"
+                    name="cameraConsent"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="textarea-d7e">
+                            <div className="flex items-start gap-2 mb-1">
+                                <Checkbox
+                                    aria-invalid={fieldState.invalid}
+                                    id="cameraConsent"
+                                    name={field.name}
+                                    checked={Boolean(field.value)}
+                                    onCheckedChange={(checked) =>
+                                        field.onChange(checked === true)
+                                    }
+                                    onBlur={field.onBlur}
+                                />
+                                <FieldLabel htmlFor="cameraConsent">
+                                    Are you ok with being captured on camera ? *
+                                </FieldLabel>
+                            </div>
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
+
+                <Controller
+                    name="additionalNotes"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field
+                            data-invalid={fieldState.invalid}
+                            className="gap-1 col-span-full"
+                        >
+                            <FieldLabel htmlFor="additionalNotes">
                                 Anything you want to share ?{" "}
                             </FieldLabel>
                             <Textarea
                                 {...field}
                                 aria-invalid={fieldState.invalid}
-                                id="textarea-d7e"
+                                id="additionalNotes"
                                 placeholder="Enter your text"
                             />
-                            <FieldDescription>A multi-line text input field</FieldDescription>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
                     )}
