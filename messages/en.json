@@ -11,10 +11,100 @@
   },
   "home": {
     "title": "Home",
-    "description": "Welcome to the website. Browse events, contact us, or visit the registration page."
+    "description": "Welcome to the website. Browse events, contact us, or visit the registration page.",
+    "registerCta": {
+      "title": "Ready to join the next event?",
+      "description": "Reserve your spot in a minute and get all event updates directly.",
+      "button": "Register now"
+    }
   },
   "contact": {
     "title": "Contact",
     "description": "Write to us for any questions, partnership ideas, or information requests."
+  },
+  "registration": {
+    "page": {
+      "title": "Registration",
+      "description": "Fill in the form below to reserve your spot for the next DIVE event."
+    },
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Please enter a valid email",
+      "invalidNumber": "Please enter a valid number",
+      "selectAtLeastOne": "Please select at least one item",
+      "selectOne": "Please select an item"
+    },
+    "form": {
+      "success": {
+        "title": "Thank you",
+        "description": "Form submitted successfully, we will get back to you soon."
+      },
+      "actions": {
+        "submitting": "Submitting...",
+        "submit": "Submit"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Name *",
+          "placeholder": "What's your name?"
+        },
+        "email": {
+          "label": "Email *",
+          "placeholder": "What's your email?"
+        },
+        "age": {
+          "label": "Age",
+          "placeholder": "How old are you?"
+        },
+        "cityOrDistrict": {
+          "label": "City (or district)",
+          "placeholder": "Where do you live in (or around) Paris?"
+        },
+        "languagePreferences": {
+          "label": "Language *",
+          "placeholder": "Pick your language preference during the event",
+          "options": {
+            "french": "French",
+            "anglais": "English",
+            "frenchToEnglish": "French but I want to speak English",
+            "englishToFrench": "English but I want to improve my French"
+          }
+        },
+        "gender": {
+          "label": "Gender",
+          "placeholder": "Select an option",
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
+        },
+        "joinReason": {
+          "label": "Why do you want to join DIVE?",
+          "placeholder": "What pushed you into joining in?"
+        },
+        "themes": {
+          "label": "Which theme inspires you most?",
+          "options": {
+            "identityBelonging": "Identity & Belonging",
+            "possibilitiesPressure": "Possibilities & Pressure",
+            "friendshipConnections": "Friendship & Connections",
+            "soloSelfLove": "Solo in Paris & Self-Love",
+            "adulthoodScam": "The Adulthood Scam"
+          }
+        },
+        "instagramHandle": {
+          "label": "Instagram",
+          "placeholder": "Type your profile here"
+        },
+        "cameraConsent": {
+          "label": "Are you ok with being captured on camera? *"
+        },
+        "additionalNotes": {
+          "label": "Anything you want to share?",
+          "placeholder": "Enter your text"
+        }
+      }
+    }
   }
 }

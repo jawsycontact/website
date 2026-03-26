@@ -1,10 +1,11 @@
 "use client";
 import * as z from "zod";
-import { registrationFormSchema } from "@/lib/forms/registration";
+import { createRegistrationFormSchema } from "@/lib/forms/registration";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
     Field,
     FieldGroup,
@@ -31,9 +32,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type Schema = z.infer<typeof registrationFormSchema>;
+type Schema = z.infer<ReturnType<typeof createRegistrationFormSchema>>;
 
 export function RegistrationForm() {
+    const t = useTranslations("registration.form");
+    const tValidation = useTranslations("registration.validation");
+    const registrationFormSchema = createRegistrationFormSchema((key) =>
+        tValidation(key)
+    );
     const form = useForm<Schema>({
         resolver: zodResolver(registrationFormSchema as never),
     });
@@ -74,10 +80,10 @@ export function RegistrationForm() {
                         <Check className="size-8" />
                     </motion.div>
                     <h2 className="text-center text-2xl text-pretty font-bold mb-2">
-                        Thank you
+                        {t("success.title")}
                     </h2>
                     <p className="text-center text-lg text-pretty text-muted-foreground">
-                        Form submitted successfully, we will get back to you soon
+                        {t("success.description")}
                     </p>
                 </motion.div>
             </div>
@@ -97,7 +103,7 @@ export function RegistrationForm() {
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="fullName">Name *</FieldLabel>
+                            <FieldLabel htmlFor="fullName">{t("fields.fullName.label")}</FieldLabel>
                             <Input
                                 {...field}
                                 id="fullName"
@@ -106,7 +112,7 @@ export function RegistrationForm() {
                                     field.onChange(e.target.value);
                                 }}
                                 aria-invalid={fieldState.invalid}
-                                placeholder={`What's your name ?`}
+                                placeholder={t("fields.fullName.placeholder")}
                             />
 
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -122,7 +128,7 @@ export function RegistrationForm() {
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="email">Email *</FieldLabel>
+                            <FieldLabel htmlFor="email">{t("fields.email.label")}</FieldLabel>
                             <Input
                                 {...field}
                                 id="email"
@@ -131,7 +137,7 @@ export function RegistrationForm() {
                                     field.onChange(e.target.value);
                                 }}
                                 aria-invalid={fieldState.invalid}
-                                placeholder={`What's your email ?`}
+                                placeholder={t("fields.email.placeholder")}
                             />
 
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -147,7 +153,7 @@ export function RegistrationForm() {
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <FieldLabel htmlFor="age">Age </FieldLabel>
+                            <FieldLabel htmlFor="age">{t("fields.age.label")}</FieldLabel>
                             <Input
                                 {...field}
                                 id="age"
@@ -156,7 +162,7 @@ export function RegistrationForm() {
                                     field.onChange(e.target.valueAsNumber);
                                 }}
                                 aria-invalid={fieldState.invalid}
-                                placeholder="How old are you ?"
+                                placeholder={t("fields.age.placeholder")}
                             />
 
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -173,7 +179,7 @@ export function RegistrationForm() {
                             className="gap-1 col-span-full"
                         >
                             <FieldLabel htmlFor="cityOrDistrict">
-                                City (or district)
+                                {t("fields.cityOrDistrict.label")}
                             </FieldLabel>
                             <Input
                                 {...field}
@@ -183,7 +189,7 @@ export function RegistrationForm() {
                                     field.onChange(e.target.value);
                                 }}
                                 aria-invalid={fieldState.invalid}
-                                placeholder="Where do you live in (or around) Paris ?"
+                                placeholder={t("fields.cityOrDistrict.placeholder")}
                             />
 
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -196,15 +202,15 @@ export function RegistrationForm() {
                     control={form.control}
                     render={({ field, fieldState }) => {
                         const options = [
-                            { value: "french", label: "French" },
-                            { value: "anglais", label: "Anglais" },
+                            { value: "french", label: t("fields.languagePreferences.options.french") },
+                            { value: "anglais", label: t("fields.languagePreferences.options.anglais") },
                             {
                                 value: "french but i want to speak en anglais",
-                                label: "French but I want to speak en anglais",
+                                label: t("fields.languagePreferences.options.frenchToEnglish"),
                             },
                             {
                                 value: "english but i want to improve my french",
-                                label: "English but I want to improve my french",
+                                label: t("fields.languagePreferences.options.englishToFrench"),
                             },
                         ];
                         return (
@@ -213,7 +219,7 @@ export function RegistrationForm() {
                                 className="gap-1 [&_p]:pb-1 col-span-full"
                             >
                                 <FieldLabel htmlFor="languagePreferences">
-                                    Language *
+                                    {t("fields.languagePreferences.label")}
                                 </FieldLabel>
 
                                 <MultiSelect
@@ -221,7 +227,7 @@ export function RegistrationForm() {
                                     onValuesChange={(value) => field.onChange(value ?? [])}
                                 >
                                     <MultiSelectTrigger>
-                                        <MultiSelectValue placeholder="Pick your language preference during the event" />
+                                        <MultiSelectValue placeholder={t("fields.languagePreferences.placeholder")} />
                                     </MultiSelectTrigger>
                                     <MultiSelectContent>
                                         {options.map(({ label, value }) => (
@@ -244,20 +250,20 @@ export function RegistrationForm() {
                     control={form.control}
                     render={({ field, fieldState }) => {
                         const options = [
-                            { value: "female", label: "Female" },
-                            { value: "male", label: "Male" },
-                            { value: "other", label: "Other" },
+                            { value: "female", label: t("fields.gender.options.female") },
+                            { value: "male", label: t("fields.gender.options.male") },
+                            { value: "other", label: t("fields.gender.options.other") },
                         ];
                         return (
                             <Field
                                 data-invalid={fieldState.invalid}
                                 className="gap-1 col-span-full"
                             >
-                                <FieldLabel htmlFor="gender">Gender </FieldLabel>
+                                <FieldLabel htmlFor="gender">{t("fields.gender.label")}</FieldLabel>
 
                                 <Select value={field.value} onValueChange={field.onChange}>
                                     <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Select an option" />
+                                        <SelectValue placeholder={t("fields.gender.placeholder")} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {options.map((option) => (
@@ -284,13 +290,13 @@ export function RegistrationForm() {
                             className="gap-1 col-span-full"
                         >
                             <FieldLabel htmlFor="joinReason">
-                                Why do you want to join DIVE ?{" "}
+                                {t("fields.joinReason.label")}
                             </FieldLabel>
                             <Textarea
                                 {...field}
                                 aria-invalid={fieldState.invalid}
                                 id="joinReason"
-                                placeholder="What pushed you into joining in ?"
+                                placeholder={t("fields.joinReason.placeholder")}
                             />
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
@@ -298,7 +304,7 @@ export function RegistrationForm() {
                 />
                 <FieldSeparator className="my-4" />
                 <h1 className="mt-6 mb-1 font-extrabold text-3xl tracking-tight col-span-full">
-                    Which theme inspires you most ?
+                    {t("fields.themes.label")}
                 </h1>
                 <Controller
                     name="themeIdentityBelonging"
@@ -316,7 +322,7 @@ export function RegistrationForm() {
                                     aria-invalid={fieldState.invalid}
                                 />
                                 <FieldLabel htmlFor="themeIdentityBelonging">
-                                    Identity & Belonging{" "}
+                                    {t("fields.themes.options.identityBelonging")}
                                 </FieldLabel>
                             </div>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -339,7 +345,7 @@ export function RegistrationForm() {
                                     aria-invalid={fieldState.invalid}
                                 />
                                 <FieldLabel htmlFor="themePossibilitiesPressure">
-                                    Possibilities & Pressure{" "}
+                                    {t("fields.themes.options.possibilitiesPressure")}
                                 </FieldLabel>
                             </div>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -362,7 +368,7 @@ export function RegistrationForm() {
                                     aria-invalid={fieldState.invalid}
                                 />
                                 <FieldLabel htmlFor="themeFriendshipConnections">
-                                    Friendship & Connections{" "}
+                                    {t("fields.themes.options.friendshipConnections")}
                                 </FieldLabel>
                             </div>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -385,7 +391,7 @@ export function RegistrationForm() {
                                     aria-invalid={fieldState.invalid}
                                 />
                                 <FieldLabel htmlFor="themeSoloSelfLove">
-                                    Solo in Paris & Self-Love{" "}
+                                    {t("fields.themes.options.soloSelfLove")}
                                 </FieldLabel>
                             </div>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -408,7 +414,7 @@ export function RegistrationForm() {
                                     aria-invalid={fieldState.invalid}
                                 />
                                 <FieldLabel htmlFor="themeAdulthoodScam">
-                                    The Adulthood Scam{" "}
+                                    {t("fields.themes.options.adulthoodScam")}
                                 </FieldLabel>
                             </div>
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -426,7 +432,7 @@ export function RegistrationForm() {
                             className="gap-1 col-span-full"
                         >
                             <FieldLabel htmlFor="instagramHandle">
-                                Instagram
+                                {t("fields.instagramHandle.label")}
                             </FieldLabel>
                             <Input
                                 {...field}
@@ -436,7 +442,7 @@ export function RegistrationForm() {
                                     field.onChange(e.target.value);
                                 }}
                                 aria-invalid={fieldState.invalid}
-                                placeholder="Type your profile here"
+                                placeholder={t("fields.instagramHandle.placeholder")}
                             />
 
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -464,7 +470,7 @@ export function RegistrationForm() {
                                     onBlur={field.onBlur}
                                 />
                                 <FieldLabel htmlFor="cameraConsent">
-                                    Are you ok with being captured on camera ? *
+                                    {t("fields.cameraConsent.label")}
                                 </FieldLabel>
                             </div>
                             {fieldState.invalid && (
@@ -483,13 +489,13 @@ export function RegistrationForm() {
                             className="gap-1 col-span-full"
                         >
                             <FieldLabel htmlFor="additionalNotes">
-                                Anything you want to share ?{" "}
+                                {t("fields.additionalNotes.label")}
                             </FieldLabel>
                             <Textarea
                                 {...field}
                                 aria-invalid={fieldState.invalid}
                                 id="additionalNotes"
-                                placeholder="Enter your text"
+                                placeholder={t("fields.additionalNotes.placeholder")}
                             />
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
@@ -498,7 +504,7 @@ export function RegistrationForm() {
             </FieldGroup>
             <div className="flex justify-end items-center w-full">
                 <Button disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting..." : "Submit"}
+                    {isSubmitting ? t("actions.submitting") : t("actions.submit")}
                 </Button>
             </div>
         </form>

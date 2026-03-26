@@ -11,10 +11,100 @@
   },
   "home": {
     "title": "Accueil",
-    "description": "Bienvenue sur le site. Consultez les événements, contactez-nous ou passez par la page inscription."
+    "description": "Bienvenue sur le site. Consultez les événements, contactez-nous ou passez par la page inscription.",
+    "registerCta": {
+      "title": "Prêt(e) à rejoindre le prochain événement ?",
+      "description": "Réservez votre place en une minute et recevez toutes les infos de l'événement.",
+      "button": "Je m'inscris"
+    }
   },
   "contact": {
     "title": "Contact",
     "description": "Écrivez-nous pour toute question, partenariat ou demande d'information."
+  },
+  "registration": {
+    "page": {
+      "title": "Inscription",
+      "description": "Remplissez le formulaire ci-dessous pour réserver votre place au prochain événement DIVE."
+    },
+    "validation": {
+      "required": "Ce champ est obligatoire",
+      "invalidEmail": "Veuillez entrer un email valide",
+      "invalidNumber": "Veuillez entrer un nombre valide",
+      "selectAtLeastOne": "Veuillez sélectionner au moins un élément",
+      "selectOne": "Veuillez sélectionner un élément"
+    },
+    "form": {
+      "success": {
+        "title": "Merci",
+        "description": "Formulaire envoyé avec succès, nous reviendrons vers vous rapidement."
+      },
+      "actions": {
+        "submitting": "Envoi en cours...",
+        "submit": "Envoyer"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Nom *",
+          "placeholder": "Quel est votre nom ?"
+        },
+        "email": {
+          "label": "Email *",
+          "placeholder": "Quel est votre email ?"
+        },
+        "age": {
+          "label": "Âge",
+          "placeholder": "Quel âge avez-vous ?"
+        },
+        "cityOrDistrict": {
+          "label": "Ville (ou quartier)",
+          "placeholder": "Où habitez-vous à Paris (ou autour) ?"
+        },
+        "languagePreferences": {
+          "label": "Langue *",
+          "placeholder": "Choisissez votre préférence de langue pendant l'événement",
+          "options": {
+            "french": "Français",
+            "anglais": "Anglais",
+            "frenchToEnglish": "Français mais je veux parler en anglais",
+            "englishToFrench": "Anglais mais je veux améliorer mon français"
+          }
+        },
+        "gender": {
+          "label": "Genre",
+          "placeholder": "Sélectionnez une option",
+          "options": {
+            "female": "Femme",
+            "male": "Homme",
+            "other": "Autre"
+          }
+        },
+        "joinReason": {
+          "label": "Pourquoi voulez-vous rejoindre DIVE ?",
+          "placeholder": "Qu'est-ce qui vous a poussé à rejoindre ?"
+        },
+        "themes": {
+          "label": "Quel thème vous inspire le plus ?",
+          "options": {
+            "identityBelonging": "Identité & Appartenance",
+            "possibilitiesPressure": "Possibilités & Pression",
+            "friendshipConnections": "Amitié & Connexions",
+            "soloSelfLove": "Solo à Paris & Amour de soi",
+            "adulthoodScam": "L'arnaque de l'âge adulte"
+          }
+        },
+        "instagramHandle": {
+          "label": "Instagram",
+          "placeholder": "Entrez votre profil ici"
+        },
+        "cameraConsent": {
+          "label": "Êtes-vous d'accord pour être filmé(e) ? *"
+        },
+        "additionalNotes": {
+          "label": "Quelque chose à partager ?",
+          "placeholder": "Entrez votre texte"
+        }
+      }
+    }
   }
 }
