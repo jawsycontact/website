@@ -12,8 +12,6 @@ export function SiteHeader() {
     const t = useTranslations("header.nav");
     const nav = [
         {href: "/", label: t("home")},
-        {href: "/events", label: t("events")},
-        {href: "/contact", label: t("contact")},
         {href: "/registration", label: "Registration"},
     ];
 
