@@ -43,6 +43,9 @@
         "submitting": "Submitting...",
         "submit": "Submit"
       },
+      "errors": {
+        "submitFailed": "We couldn't submit your registration right now. Please try again."
+      },
       "fields": {
         "fullName": {
           "label": "Name *",
@@ -98,7 +101,11 @@
           "placeholder": "Type your profile here"
         },
         "cameraConsent": {
-          "label": "Are you ok with being captured on camera? *"
+          "label": "Are you ok with being captured on camera? *",
+          "options": {
+            "yes": "Yes, I consent",
+            "no": "No, I do not consent"
+          }
         },
         "additionalNotes": {
           "label": "Anything you want to share?",

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
     Field,
     FieldGroup,
@@ -35,6 +35,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 type Schema = z.infer<ReturnType<typeof createRegistrationFormSchema>>;
 
 export function RegistrationForm() {
+    const locale = useLocale();
     const t = useTranslations("registration.form");
     const tValidation = useTranslations("registration.validation");
     const registrationFormSchema = createRegistrationFormSchema((key) =>
@@ -42,6 +43,23 @@ export function RegistrationForm() {
     );
     const form = useForm<Schema>({
         resolver: zodResolver(registrationFormSchema as never),
+        defaultValues: {
+            fullName: "",
+            email: "",
+            age: undefined,
+            cityOrDistrict: "",
+            languagePreferences: [],
+            gender: undefined,
+            joinReason: "",
+            themeIdentityBelonging: false,
+            themePossibilitiesPressure: false,
+            themeFriendshipConnections: false,
+            themeSoloSelfLove: false,
+            themeAdulthoodScam: false,
+            instagramHandle: "",
+            cameraConsent: undefined,
+            additionalNotes: "",
+        },
     });
     const {
         formState: { isSubmitting, isSubmitSuccessful },
@@ -49,11 +67,48 @@ export function RegistrationForm() {
 
     const handleSubmit = form.handleSubmit(async (data: Schema) => {
         try {
-            // TODO: implement form submission
-            console.log(data);
+            form.clearErrors("root");
+            const response = await fetch("/api/registration-submissions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    locale,
+                    data,
+                }),
+            });
+
+            const result = (await response.json()) as {
+                message: string;
+                errors?: Partial<Record<keyof Schema, string[]>>;
+            };
+
+            if (!response.ok) {
+                if (result.errors) {
+                    for (const [fieldName, messages] of Object.entries(result.errors)) {
+                        const message = messages?.[0];
+                        if (!message) {
+                            continue;
+                        }
+
+                        form.setError(fieldName as keyof Schema, {
+                            message,
+                        });
+                    }
+                } else {
+                    form.setError("root", {
+                        message: result.message || t("errors.submitFailed"),
+                    });
+                }
+                return;
+            }
+
             form.reset();
         } catch {
-            // TODO: handle error
+            form.setError("root", {
+                message: t("errors.submitFailed"),
+            });
         }
     });
 
@@ -108,6 +163,7 @@ export function RegistrationForm() {
                                 {...field}
                                 id="fullName"
                                 type="text"
+                                value={field.value ?? ""}
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
                                 }}
@@ -133,6 +189,7 @@ export function RegistrationForm() {
                                 {...field}
                                 id="email"
                                 type="text"
+                                value={field.value ?? ""}
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
                                 }}
@@ -158,8 +215,13 @@ export function RegistrationForm() {
                                 {...field}
                                 id="age"
                                 type="number"
+                                value={field.value ?? ""}
                                 onChange={(e) => {
-                                    field.onChange(e.target.valueAsNumber);
+                                    field.onChange(
+                                        e.target.value === ""
+                                            ? undefined
+                                            : e.target.valueAsNumber
+                                    );
                                 }}
                                 aria-invalid={fieldState.invalid}
                                 placeholder={t("fields.age.placeholder")}
@@ -185,6 +247,7 @@ export function RegistrationForm() {
                                 {...field}
                                 id="cityOrDistrict"
                                 type="text"
+                                value={field.value ?? ""}
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
                                 }}
@@ -296,6 +359,7 @@ export function RegistrationForm() {
                                 {...field}
                                 aria-invalid={fieldState.invalid}
                                 id="joinReason"
+                                value={field.value ?? ""}
                                 placeholder={t("fields.joinReason.placeholder")}
                             />
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -317,7 +381,7 @@ export function RegistrationForm() {
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
                                     id="themeIdentityBelonging"
-                                    checked={field.value}
+                                    checked={Boolean(field.value)}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
@@ -340,7 +404,7 @@ export function RegistrationForm() {
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
                                     id="themePossibilitiesPressure"
-                                    checked={field.value}
+                                    checked={Boolean(field.value)}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
@@ -363,7 +427,7 @@ export function RegistrationForm() {
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
                                     id="themeFriendshipConnections"
-                                    checked={field.value}
+                                    checked={Boolean(field.value)}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
@@ -386,7 +450,7 @@ export function RegistrationForm() {
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
                                     id="themeSoloSelfLove"
-                                    checked={field.value}
+                                    checked={Boolean(field.value)}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
@@ -409,7 +473,7 @@ export function RegistrationForm() {
                             <div className="flex items-center gap-2 mb-1">
                                 <Checkbox
                                     id="themeAdulthoodScam"
-                                    checked={field.value}
+                                    checked={Boolean(field.value)}
                                     onCheckedChange={field.onChange}
                                     aria-invalid={fieldState.invalid}
                                 />
@@ -438,6 +502,7 @@ export function RegistrationForm() {
                                 {...field}
                                 id="instagramHandle"
                                 type="text"
+                                value={field.value ?? ""}
                                 onChange={(e) => {
                                     field.onChange(e.target.value);
                                 }}
@@ -446,36 +511,6 @@ export function RegistrationForm() {
                             />
 
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                        </Field>
-                    )}
-                />
-
-                <Controller
-                    name="cameraConsent"
-                    control={form.control}
-                    render={({ field, fieldState }) => (
-                        <Field
-                            data-invalid={fieldState.invalid}
-                            className="gap-1 col-span-full"
-                        >
-                            <div className="flex items-start gap-2 mb-1">
-                                <Checkbox
-                                    aria-invalid={fieldState.invalid}
-                                    id="cameraConsent"
-                                    name={field.name}
-                                    checked={Boolean(field.value)}
-                                    onCheckedChange={(checked) =>
-                                        field.onChange(checked === true)
-                                    }
-                                    onBlur={field.onBlur}
-                                />
-                                <FieldLabel htmlFor="cameraConsent">
-                                    {t("fields.cameraConsent.label")}
-                                </FieldLabel>
-                            </div>
-                            {fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]} />
-                            )}
                         </Field>
                     )}
                 />
@@ -495,13 +530,68 @@ export function RegistrationForm() {
                                 {...field}
                                 aria-invalid={fieldState.invalid}
                                 id="additionalNotes"
+                                value={field.value ?? ""}
                                 placeholder={t("fields.additionalNotes.placeholder")}
                             />
                             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
                     )}
                 />
+                <Controller
+                    name="cameraConsent"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field
+                            data-invalid={fieldState.invalid}
+                            className="gap-1 col-span-full"
+                        >
+                            <FieldLabel>{t("fields.cameraConsent.label")}</FieldLabel>
+                            <div
+                                role="radiogroup"
+                                aria-invalid={fieldState.invalid}
+                                className="flex flex-wrap items-center gap-4"
+                            >
+                                <label
+                                    htmlFor="cameraConsentYes"
+                                    className="inline-flex items-center gap-2 text-sm"
+                                >
+                                    <input
+                                        id="cameraConsentYes"
+                                        name={field.name}
+                                        type="radio"
+                                        checked={field.value === true}
+                                        onChange={() => field.onChange(true)}
+                                        onBlur={field.onBlur}
+                                    />
+                                    {t("fields.cameraConsent.options.yes")}
+                                </label>
+                                <label
+                                    htmlFor="cameraConsentNo"
+                                    className="inline-flex items-center gap-2 text-sm"
+                                >
+                                    <input
+                                        id="cameraConsentNo"
+                                        name={field.name}
+                                        type="radio"
+                                        checked={field.value === false}
+                                        onChange={() => field.onChange(false)}
+                                        onBlur={field.onBlur}
+                                    />
+                                    {t("fields.cameraConsent.options.no")}
+                                </label>
+                            </div>
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
             </FieldGroup>
+            {form.formState.errors.root?.message ? (
+                <p className="mb-3 text-sm text-destructive">
+                    {form.formState.errors.root.message}
+                </p>
+            ) : null}
             <div className="flex justify-end items-center w-full">
                 <Button disabled={isSubmitting}>
                     {isSubmitting ? t("actions.submitting") : t("actions.submit")}

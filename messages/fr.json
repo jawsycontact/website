@@ -43,6 +43,9 @@
         "submitting": "Envoi en cours...",
         "submit": "Envoyer"
       },
+      "errors": {
+        "submitFailed": "Impossible d'envoyer votre inscription pour le moment. Veuillez réessayer."
+      },
       "fields": {
         "fullName": {
           "label": "Nom *",
@@ -98,7 +101,11 @@
           "placeholder": "Entrez votre profil ici"
         },
         "cameraConsent": {
-          "label": "Êtes-vous d'accord pour être filmé(e) ? *"
+          "label": "Êtes-vous d'accord pour être filmé(e) ? *",
+          "options": {
+            "yes": "Oui, j'accepte",
+            "no": "Non, je n'accepte pas"
+          }
         },
         "additionalNotes": {
           "label": "Quelque chose à partager ?",
