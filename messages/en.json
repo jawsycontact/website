@@ -43,6 +43,9 @@
         "submitting": "Submitting...",
         "submit": "Submit"
       },
+      "errors": {
+        "submitFailed": "We couldn't submit your registration right now. Please try again."
+      },
       "fields": {
         "fullName": {
           "label": "Name *",

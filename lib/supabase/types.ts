@@ -14,87 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      events: {
+      registration_submissions: {
         Row: {
-          created_at: string
-          date: string
-          description: string | null
-          id: number
-          latitude: number
-          location_name: string | null
-          longitude: number
-          name: string
-        }
-        Insert: {
-          created_at?: string
-          date: string
-          description?: string | null
-          id?: number
-          latitude: number
-          location_name?: string | null
-          longitude: number
-          name: string
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          description?: string | null
-          id?: number
-          latitude?: number
-          location_name?: string | null
-          longitude?: number
-          name?: string
-        }
-        Relationships: []
-      }
-      inscriptions: {
-        Row: {
-          age: number
-          anything_to_share: string | null
+          additional_notes: string | null
+          age: number | null
+          camera_consent: boolean
+          city_or_district: string | null
           created_at: string
           email: string
+          form_payload: Json
           full_name: string
-          id: number
-          ok_to_be_filmed: boolean
-          why_join: string
+          gender: string | null
+          id: string
+          instagram_handle: string | null
+          join_reason: string | null
+          language_preferences: string[]
+          locale: string | null
+          metadata: Json
+          schema_version: number
+          selected_themes: string[]
+          source: string
+          updated_at: string
         }
         Insert: {
-          age: number
-          anything_to_share?: string | null
+          additional_notes?: string | null
+          age?: number | null
+          camera_consent: boolean
+          city_or_district?: string | null
           created_at?: string
           email: string
+          form_payload?: Json
           full_name: string
-          id?: number
-          ok_to_be_filmed: boolean
-          why_join: string
+          gender?: string | null
+          id?: string
+          instagram_handle?: string | null
+          join_reason?: string | null
+          language_preferences?: string[]
+          locale?: string | null
+          metadata?: Json
+          schema_version?: number
+          selected_themes?: string[]
+          source?: string
+          updated_at?: string
         }
         Update: {
-          age?: number
-          anything_to_share?: string | null
+          additional_notes?: string | null
+          age?: number | null
+          camera_consent?: boolean
+          city_or_district?: string | null
           created_at?: string
           email?: string
+          form_payload?: Json
           full_name?: string
-          id?: number
-          ok_to_be_filmed?: boolean
-          why_join?: string
-        }
-        Relationships: []
-      }
-      tally_form_links: {
-        Row: {
-          created_at: string
-          id: number
-          link: string
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          link: string
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          link?: string
+          gender?: string | null
+          id?: string
+          instagram_handle?: string | null
+          join_reason?: string | null
+          language_preferences?: string[]
+          locale?: string | null
+          metadata?: Json
+          schema_version?: number
+          selected_themes?: string[]
+          source?: string
+          updated_at?: string
         }
         Relationships: []
       }

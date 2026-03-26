@@ -43,6 +43,9 @@
         "submitting": "Envoi en cours...",
         "submit": "Envoyer"
       },
+      "errors": {
+        "submitFailed": "Impossible d'envoyer votre inscription pour le moment. Veuillez réessayer."
+      },
       "fields": {
         "fullName": {
           "label": "Nom *",
