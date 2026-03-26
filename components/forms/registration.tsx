@@ -57,7 +57,7 @@ export function RegistrationForm() {
             themeSoloSelfLove: false,
             themeAdulthoodScam: false,
             instagramHandle: "",
-            cameraConsent: false,
+            cameraConsent: undefined,
             additionalNotes: "",
         },
     });
@@ -545,20 +545,40 @@ export function RegistrationForm() {
                             data-invalid={fieldState.invalid}
                             className="gap-1 col-span-full"
                         >
-                            <div className="flex items-start gap-2">
-                                <Checkbox
-                                    aria-invalid={fieldState.invalid}
-                                    id="cameraConsent"
-                                    name={field.name}
-                                    checked={Boolean(field.value)}
-                                    onCheckedChange={(checked) =>
-                                        field.onChange(checked === true)
-                                    }
-                                    onBlur={field.onBlur}
-                                />
-                                <FieldLabel htmlFor="cameraConsent">
-                                    {t("fields.cameraConsent.label")}
-                                </FieldLabel>
+                            <FieldLabel>{t("fields.cameraConsent.label")}</FieldLabel>
+                            <div
+                                role="radiogroup"
+                                aria-invalid={fieldState.invalid}
+                                className="flex flex-wrap items-center gap-4"
+                            >
+                                <label
+                                    htmlFor="cameraConsentYes"
+                                    className="inline-flex items-center gap-2 text-sm"
+                                >
+                                    <input
+                                        id="cameraConsentYes"
+                                        name={field.name}
+                                        type="radio"
+                                        checked={field.value === true}
+                                        onChange={() => field.onChange(true)}
+                                        onBlur={field.onBlur}
+                                    />
+                                    {t("fields.cameraConsent.options.yes")}
+                                </label>
+                                <label
+                                    htmlFor="cameraConsentNo"
+                                    className="inline-flex items-center gap-2 text-sm"
+                                >
+                                    <input
+                                        id="cameraConsentNo"
+                                        name={field.name}
+                                        type="radio"
+                                        checked={field.value === false}
+                                        onChange={() => field.onChange(false)}
+                                        onBlur={field.onBlur}
+                                    />
+                                    {t("fields.cameraConsent.options.no")}
+                                </label>
                             </div>
                             {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />

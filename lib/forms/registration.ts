@@ -41,9 +41,7 @@ export function createRegistrationFormSchema(t: Translate) {
         themeSoloSelfLove: z.boolean().default(false),
         themeAdulthoodScam: z.boolean().default(false),
         instagramHandle: z.string({ error: t("required") }).optional(),
-        cameraConsent: z
-            .boolean()
-            .refine((value) => value === true, { error: t("required") }),
+        cameraConsent: z.boolean({ error: t("required") }),
         additionalNotes: z.string({ error: t("required") }).optional(),
     });
 }

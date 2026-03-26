@@ -101,7 +101,11 @@
           "placeholder": "Entrez votre profil ici"
         },
         "cameraConsent": {
-          "label": "Êtes-vous d'accord pour être filmé(e) ? *"
+          "label": "Êtes-vous d'accord pour être filmé(e) ? *",
+          "options": {
+            "yes": "Oui, j'accepte",
+            "no": "Non, je n'accepte pas"
+          }
         },
         "additionalNotes": {
           "label": "Quelque chose à partager ?",
